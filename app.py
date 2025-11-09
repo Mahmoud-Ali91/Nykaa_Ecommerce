@@ -6,7 +6,7 @@ from scipy import stats
 import numpy as np
 
 # Page config - MUST BE FIRST!
-st.set_page_config(page_title="Cosmetics Reviews Dashboard", page_icon="💄", layout="wide")
+st.set_page_config(page_title="Nykaa Case Study (2019-2022)", page_icon="📈", layout="wide")
 
 # Custom CSS for enhanced UI
 st.markdown("""
@@ -30,227 +30,74 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-# Title and Introduction
-st.title("💄 Cosmetics E-Comm Review Analytics")
+
+# Title and Introduction (This part is now shared by both cover and main page)
+st.title("📈 Nykaa E-commerce Case Study")
+st.subheader("Analysis of Growth, Strategy, and IPO (2019-2022)")
+
 
 # Create Cover Page Toggle
 if 'show_cover' not in st.session_state:
     st.session_state.show_cover = True
 
+# --- START OF SIMPLIFIED COVER PAGE ---
+
 # Cover Page
 if st.session_state.show_cover:
-    # Hero Section
+    
+    # Hero Section - Simplified and Focused
     st.markdown("""
     <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
                  padding: 40px; border-radius: 15px; margin-bottom: 30px; color: white;'>
-        <h1 style='text-align: center; font-size: 3em; margin: 0;'>🌟 Market Intelligence Powered by AI</h1>
+        <h1 style='text-align: center; font-size: 2.5em; margin: 0;'>
+            Nykaa: A Case Study
+        </h1>
         <h2 style='text-align: center; font-size: 1.5em; margin-top: 10px; font-weight: 300;'>
-            الذكاء السوقي مدعوم بالذكاء الاصطناعي
+            Analyzing the 2019-2022 Growth & IPO Era
         </h2>
     </div>
     """, unsafe_allow_html=True)
     
-    # --- CTA BUTTON MOVED HERE (FROM THE BOTTOM) ---
+    # Introduction
+    st.markdown("""
+    This analysis focuses on the critical growth period of Nykaa from 2019 to 2022. This timeframe covers:
+    * Pre-IPO market expansion and brand strategy.
+    * Navigation of the COVID-19 pandemic and the e-commerce boom.
+    * The build-up, execution, and impact of the blockbuster 2021 IPO.
+    
+    We will analyze customer review data to uncover insights into category performance, customer preferences, and market trends that defined this era.
+    """)
+    
+    # --- CTA BUTTON ---
     st.markdown("---")
     col_center = st.columns([1, 2, 1])[1]
     with col_center:
-        if st.button("🚀 Explore the Dashboard | استكشف لوحة المعلومات", 
+        if st.button("🚀 Explore the Dashboard", 
                       use_container_width=True, 
                       type="primary"):
             st.session_state.show_cover = False
             st.rerun()
     st.markdown("---")
-    # --- END OF MOVED BUTTON ---
     
-    # What We're Doing Section
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        ### 🎯 What We're Doing | ما الذي نقوم به؟
-        
-        We're combining **Natural Language Processing (NLP)** with **Market Intelligence** to transform 
-        thousands of customer reviews into actionable business insights.
-        
-        **نقوم بدمج تقنية معالجة اللغات الطبيعية مع الذكاء السوقي لتحويل آلاف التقييمات من العملاء إلى رؤى تجارية قابلة للتطبيق.**
-        
-        ---
-        
-        ### 🤖 The Technology | التقنية المستخدمة
-        
-        **Natural Language Processing (NLP):**
-        - 📝 Automatically reads & understands customer reviews
-        - 🏷️ Categorizes products (Makeup, Skincare, Haircare, etc.)
-        - 💬 Extracts claims customers mention (Hydrating, Anti-aging, etc.)
-        - ⭐ Analyzes sentiment and satisfaction
-        
-        **معالجة اللغات الطبيعية:**
-        - قراءة وفهم تقييمات العملاء بشكل آلي
-        - تصنيف المنتجات (مستحضرات تجميل، عناية بالبشرة، عناية بالشعر)
-        - استخلاص المزايا التي يذكرها العملاء
-        - تحليل الآراء ومستويات الرضا
-        """)
-    
-    with col2:
-        st.markdown("""
-        ### 💼 The Business Value | القيمة المضافة للأعمال
-        
-        Instead of reading reviews manually, AI does it instantly:
-        
-        **بدلاً من قراءة التقييمات بشكل يدوي، يقوم الذكاء الاصطناعي بذلك فورياً:**
-        
-        | Traditional Method | AI-Powered Method |
-        |-------------------|-------------------|
-        | 📚 Hours of manual reading | ⚡ Instant analysis |
-        | 🤔 Subjective interpretation | 📊 Data-driven insights |
-        | 👤 Limited sample size | 🌍 Analyzes ALL reviews |
-        | 📝 Prone to human error | ✅ Consistent & accurate |
-        
-        ---
-        
-        ### 📈 What You'll Get | ما ستحصل عليه
-        
-        **English:**
-        1. **Opportunity Scoring** - Which categories to invest in
-        2. **Growth Trends** - What's growing, what's declining
-        3. **Customer Preferences** - What claims resonate most
-        4. **Quality Insights** - Rating patterns by category
-        5. **Competitive Intelligence** - Market landscape view
-        
-        **العربية:**
-        1. **تقييم الفرص** - تحديد الفئات الأجدر بالاستثمار
-        2. **اتجاهات النمو** - رصد المنتجات الصاعدة والمتراجعة
-        3. **تفضيلات العملاء** - معرفة المزايا الأكثر جذباً
-        4. **رؤى الجودة** - أنماط التقييمات حسب كل فئة
-        5. **الذكاء التنافسي** - رؤية شاملة لخريطة السوق
-        """)
-    
-    # How It Works Section
-    st.markdown("---")
-    st.markdown("### 🔄 How It Works | آلية العمل")
-    
-    col_a, col_b, col_c, col_d = st.columns(4)
-    
-    with col_a:
-        st.markdown("""
-        <div style='background: #f0f2f6; padding: 20px; border-radius: 10px; text-align: center;'>
-            <h2>1️⃣</h2>
-            <h4>Data Collection</h4>
-            <p style='font-size: 0.9em;'>Gather reviews from Nykaa e-commerce</p>
-            <p style='font-size: 0.9em; color: #666;'>جمع التقييمات من منصة نيكا</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col_b:
-        st.markdown("""
-        <div style='background: #f0f2f6; padding: 20px; border-radius: 10px; text-align: center;'>
-            <h2>2️⃣</h2>
-            <h4>AI Processing</h4>
-            <p style='font-size: 0.9em;'>NLP analyzes text & extracts insights</p>
-            <p style='font-size: 0.9em; color: #666;'>المعالجة الآلية للنصوص</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col_c:
-        st.markdown("""
-        <div style='background: #f0f2f6; padding: 20px; border-radius: 10px; text-align: center;'>
-            <h2>3️⃣</h2>
-            <h4>Market Intelligence</h4>
-            <p style='font-size: 0.9em;'>Transform data into business metrics</p>
-            <p style='font-size: 0.9em; color: #666;'>تحويل البيانات لمؤشرات أداء</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col_d:
-        st.markdown("""
-        <div style='background: #f0f2f6; padding: 20px; border-radius: 10px; text-align: center;'>
-            <h2>4️⃣</h2>
-            <h4>Actionable Insights</h4>
-            <p style='font-size: 0.9em;'>Visual dashboard for decisions</p>
-            <p style='font-size: 0.9em; color: #666;'>لوحة معلومات للقرارات</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # Use Cases
-    st.markdown("---")
-    st.markdown("### 💡 Business Use Cases | حالات الاستخدام في الأعمال")
-    
-    col_x, col_y = st.columns(2)
-    
-    with col_x:
-        st.info("""
-        **For Product Managers | لمديري المنتجات:**
-        - ✅ Identify which categories to expand
-        - ✅ Spot emerging trends early
-        - ✅ Understand customer pain points
-        - ✅ Prioritize product improvements
-        
-        - ✅ تحديد الفئات المناسبة للتوسع
-        - ✅ رصد الاتجاهات الناشئة مبكراً
-        - ✅ فهم نقاط الألم لدى العملاء
-        - ✅ ترتيب أولويات تطوير المنتجات
-        """)
-        
-        st.success("""
-        **For Marketing Teams | لفرق التسويق:**
-        - ✅ Know which claims resonate most
-        - ✅ Target high-satisfaction categories
-        - ✅ Create data-driven campaigns
-        - ✅ Optimize messaging by segment
-        
-        - ✅ معرفة المزايا الأكثر تأثيراً
-        - ✅ استهداف الفئات عالية الرضا
-        - ✅ تصميم حملات مبنية على البيانات
-        - ✅ تحسين الرسائل حسب الشريحة
-        """)
-    
-    with col_y:
-        st.warning("""
-        **For Executives | للمديرين التنفيذيين:**
-        - ✅ Get market overview at a glance
-        - ✅ Make investment decisions with confidence
-        - ✅ Track performance vs. competition
-        - ✅ Identify strategic opportunities
-        
-        - ✅ الحصول على نظرة سريعة للسوق
-        - ✅ اتخاذ قرارات استثمارية واثقة
-        - ✅ متابعة الأداء مقابل المنافسين
-        - ✅ تحديد الفرص الاستراتيجية
-        """)
-        
-        st.error("""
-        **For Operations | لإدارة العمليات:**
-        - ✅ Optimize inventory based on demand
-        - ✅ Identify quality issues proactively
-        - ✅ Forecast trends for planning
-        - ✅ Monitor brand reputation
-        
-        - ✅ تحسين المخزون بناءً على الطلب
-        - ✅ اكتشاف مشكلات الجودة مبكراً
-        - ✅ التنبؤ بالاتجاهات للتخطيط
-        - ✅ مراقبة سمعة العلامة التجارية
-        """)
-    
-    # --- ORIGINAL BUTTON LOCATION REMOVED FROM HERE ---
-    
-    st.markdown("---")
-    st.caption("💡 **Pro Tip:** This approach can be applied to any e-commerce vertical - Fashion, Electronics, Food, etc.")
-    st.caption("💡 **ملاحظة احترافية:** يمكن تطبيق هذا النهج على أي قطاع في التجارة الإلكترونية - الأزياء، الإلكترونيات، الأغذية، وغيرها")
+    st.caption("This dashboard uses NLP to analyze customer reviews from Nykaa, providing a data-driven view of its market position.")
     
     st.stop()  # Stop here to show only cover page
+
+# --- END OF SIMPLIFIED COVER PAGE ---
+
+
 # Quick access button to return to cover
-if st.sidebar.button("📖 View Cover Page | عرض الصفحة التعريفية", use_container_width=True):
+if st.sidebar.button("📖 View Cover Page", use_container_width=True):
     st.session_state.show_cover = True
     st.rerun()
 
 st.sidebar.markdown("---")
 
 st.markdown("""
-Dashboard Context: This analysis is based on customer reviews from Nykaa, a leading Indian cosmetics e-commerce platform. 
-We use NLP (Natural Language Processing) to categorize products based on their titles and tags, and keyword extraction to 
-identify popular claims in reviews. Metrics include review volume (as a proxy for popularity) and average ratings. 
-Insights focus on 2019-2022 data to provide recent trends, excluding the 'Other' category for clarity. 
-Use the sidebar to filter and explore.
+**Dashboard Context:** This analysis is based on customer reviews from Nykaa from **2019-2022**. 
+We use NLP (Natural Language Processing) to categorize products and extract key claims from reviews. 
+Metrics include review volume (as a proxy for popularity) and average ratings. 
+The 'Other' category is excluded for clarity. Use the sidebar to filter and explore.
 """)
 
 # Load from kitchen (cached)
