@@ -6,7 +6,7 @@ from scipy import stats
 import numpy as np
 
 # Page config - MUST BE FIRST!
-st.set_page_config(page_title="Nykaa Case Study (2019-2022)", page_icon="📈", layout="wide")
+st.set_page_config(page_title="NLP for Market Intelligence (Prototype)", page_icon="🤖", layout="wide")
 
 # Custom CSS for enhanced UI
 st.markdown("""
@@ -31,73 +31,93 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Title and Introduction (This part is now shared by both cover and main page)
-st.title("📈 Nykaa E-commerce Case Study")
-st.subheader("Analysis of Growth, Strategy, and IPO (2019-2022)")
+# Title (Will be shown on the main page)
+st.title("🤖 NLP for Market Intelligence Dashboard")
 
 
 # Create Cover Page Toggle
 if 'show_cover' not in st.session_state:
     st.session_state.show_cover = True
 
-# --- START OF SIMPLIFIED COVER PAGE ---
+# --- START OF NEW, FOCUSED COVER PAGE ---
 
 # Cover Page
 if st.session_state.show_cover:
     
-    # Hero Section - Simplified and Focused
+    # Hero Section - Focused on the "Prototype" idea
     st.markdown("""
     <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
                  padding: 40px; border-radius: 15px; margin-bottom: 30px; color: white;'>
         <h1 style='text-align: center; font-size: 2.5em; margin: 0;'>
-            Nykaa: A Case Study
+            AI for Market Intelligence: A Prototype
         </h1>
         <h2 style='text-align: center; font-size: 1.5em; margin-top: 10px; font-weight: 300;'>
-            Analyzing the 2019-2022 Growth & IPO Era
+            نموذج أولي: استخدام الذكاء الاصطناعي في أبحاث السوق
         </h2>
     </div>
     """, unsafe_allow_html=True)
     
-    # Introduction
-    st.markdown("""
-    This analysis focuses on the critical growth period of Nykaa from 2019 to 2022. This timeframe covers:
-    * Pre-IPO market expansion and brand strategy.
-    * Navigation of the COVID-19 pandemic and the e-commerce boom.
-    * The build-up, execution, and impact of the blockbuster 2021 IPO.
+    # Introduction - Simple, Bilingual Explanation
     
-    We will analyze customer review data to uncover insights into category performance, customer preferences, and market trends that defined this era.
-    """)
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.header("The Idea (EN)")
+        st.markdown("""
+        This application is a **prototype** to demonstrate how Natural Language Processing (NLP) can be used for **Market Research and Business Intelligence**.
+        
+        Instead of manually reading thousands of customer reviews, we use AI to:
+        * Automatically categorize products.
+        * Extract key customer preferences (like "hydrating" or "long-lasting").
+        * Analyze trends in customer satisfaction and popularity.
+        
+        The data used here is a Kaggle dataset of Nykaa cosmetics reviews, serving as a real-world example.
+        """)
+
+    with col2:
+        st.header("الفكرة (AR)")
+        st.markdown("""
+        <div dir="rtl">
+        
+        هذا التطبيق هو **نموذج أولي (Prototype)** يوضح كيف يمكن استخدام **معالجة اللغات الطبيعية (NLP)** في **أبحاث السوق وذكاء الأعمال**.
+        
+        بدلاً من قراءة آلاف التقييمات يدوياً، نستخدم الذكاء الاصطناعي من أجل:
+        * تصنيف المنتجات تلقائياً.
+        * استخلاص تفضيلات العملاء الرئيسية (مثل "ترطيب" أو "يدوم طويلاً").
+        * تحليل اتجاهات السوق ومدى رضا العملاء.
+        
+        البيانات المستخدمة هنا هي مثال تطبيقي من موقع Kaggle، وتتضمن تقييمات عملاء لمنتجات "Nykaa".
+        </div>
+        """, unsafe_allow_html=True)
     
     # --- CTA BUTTON ---
     st.markdown("---")
     col_center = st.columns([1, 2, 1])[1]
     with col_center:
-        if st.button("🚀 Explore the Dashboard", 
+        if st.button("🚀 Explore the Dashboard | استكشف لوحة المعلومات", 
                       use_container_width=True, 
                       type="primary"):
             st.session_state.show_cover = False
             st.rerun()
     st.markdown("---")
     
-    st.caption("This dashboard uses NLP to analyze customer reviews from Nykaa, providing a data-driven view of its market position.")
-    
     st.stop()  # Stop here to show only cover page
 
-# --- END OF SIMPLIFIED COVER PAGE ---
+# --- END OF NEW COVER PAGE ---
 
 
 # Quick access button to return to cover
-if st.sidebar.button("📖 View Cover Page", use_container_width=True):
+if st.sidebar.button("📖 View Cover Page | عرض الصفحة التعريفية", use_container_width=True):
     st.session_state.show_cover = True
     st.rerun()
 
 st.sidebar.markdown("---")
 
 st.markdown("""
-**Dashboard Context:** This analysis is based on customer reviews from Nykaa from **2019-2022**. 
-We use NLP (Natural Language Processing) to categorize products and extract key claims from reviews. 
-Metrics include review volume (as a proxy for popularity) and average ratings. 
-The 'Other' category is excluded for clarity. Use the sidebar to filter and explore.
+**Dashboard Context:** This analysis is based on customer reviews from Nykaa (2019-2022) as a proof-of-concept. 
+We use NLP to categorize products and extract key claims. 
+Metrics include review volume (popularity) and average ratings. 
+The 'Other' category is excluded for clarity.
 """)
 
 # Load from kitchen (cached)
@@ -149,7 +169,7 @@ if not cat_df.empty:
     if 'selected_cats' not in st.session_state:
         st.session_state.selected_cats = all_categories
     
-    selected_cats = st.sidebar.multiselect(
+    selected_cats = st.sidebar.multoselect(
         "Choose categories to analyze:", 
         options=all_categories,
         default=st.session_state.selected_cats,
@@ -299,7 +319,7 @@ with tab2:
             color='Avg_Rating',
             title="Review Volume by Category", 
             labels={'Sales_Volume': 'Volume'},
-            color_continuous_scale='RdYlGn'
+            color_continuous_scale='RdYlG'
         )
         st.plotly_chart(fig_volume, use_container_width=True)
         
@@ -347,7 +367,7 @@ with tab3:
             y='Mention_Count',
             title=f"Top {top_n} Claim Mentions", 
             color='Avg_Claim_Rating',
-            color_continuous_scale='RdYlGn'
+            color_continuous_scale='RdYlG'
         )
         st.plotly_chart(fig_claim, use_container_width=True)
         
@@ -375,7 +395,7 @@ with tab3:
         dominant trends in customer feedback.
         """)
         
-        if show_insights:
+        if show_insighs:
             with st.expander("Insights"):
                 st.markdown("- **Dominant claims:** Key customer priorities.")
                 st.markdown("- **Small slices:** Emerging or niche opportunities.")
