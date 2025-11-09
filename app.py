@@ -42,13 +42,25 @@ if st.session_state.show_cover:
     # Hero Section
     st.markdown("""
     <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                padding: 40px; border-radius: 15px; margin-bottom: 30px; color: white;'>
+                 padding: 40px; border-radius: 15px; margin-bottom: 30px; color: white;'>
         <h1 style='text-align: center; font-size: 3em; margin: 0;'>🌟 Market Intelligence Powered by AI</h1>
         <h2 style='text-align: center; font-size: 1.5em; margin-top: 10px; font-weight: 300;'>
             الذكاء السوقي مدعوم بالذكاء الاصطناعي
         </h2>
     </div>
     """, unsafe_allow_html=True)
+    
+    # --- CTA BUTTON MOVED HERE (FROM THE BOTTOM) ---
+    st.markdown("---")
+    col_center = st.columns([1, 2, 1])[1]
+    with col_center:
+        if st.button("🚀 Explore the Dashboard | استكشف لوحة المعلومات", 
+                      use_container_width=True, 
+                      type="primary"):
+            st.session_state.show_cover = False
+            st.rerun()
+    st.markdown("---")
+    # --- END OF MOVED BUTTON ---
     
     # What We're Doing Section
     col1, col2 = st.columns(2)
@@ -219,22 +231,13 @@ if st.session_state.show_cover:
         - ✅ مراقبة سمعة العلامة التجارية
         """)
     
-    # CTA Button
-    st.markdown("---")
-    col_center = st.columns([1, 2, 1])[1]
-    with col_center:
-        if st.button("🚀 Explore the Dashboard | استكشف لوحة المعلومات", 
-                     use_container_width=True, 
-                     type="primary"):
-            st.session_state.show_cover = False
-            st.rerun()
+    # --- ORIGINAL BUTTON LOCATION REMOVED FROM HERE ---
     
     st.markdown("---")
     st.caption("💡 **Pro Tip:** This approach can be applied to any e-commerce vertical - Fashion, Electronics, Food, etc.")
     st.caption("💡 **ملاحظة احترافية:** يمكن تطبيق هذا النهج على أي قطاع في التجارة الإلكترونية - الأزياء، الإلكترونيات، الأغذية، وغيرها")
     
     st.stop()  # Stop here to show only cover page
-
 # Quick access button to return to cover
 if st.sidebar.button("📖 View Cover Page | عرض الصفحة التعريفية", use_container_width=True):
     st.session_state.show_cover = True
