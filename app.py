@@ -39,7 +39,7 @@ st.title("🤖 NLP for Market Intelligence Dashboard")
 if 'show_cover' not in st.session_state:
     st.session_state.show_cover = True
 
-# --- START OF NEW, FOCUSED COVER PAGE ---
+# --- START OF FOCUSED COVER PAGE ---
 
 # Cover Page
 if st.session_state.show_cover:
@@ -154,27 +154,41 @@ if not cat_df.empty:
     
     st.sidebar.markdown("---")
     
-    # Category Selection
+    # --- START: CORRECTED CATEGORY SELECTION BLOCK ---
+    
     st.sidebar.subheader("🏷️ Product Categories")
     all_categories = list(cat_df['Category'].unique())
     
     # Quick select buttons
     col_a, col_b = st.sidebar.columns(2)
     if col_a.button("Select All", use_container_width=True):
-        st.session_state.selected_cats = all_categories
+        st.session_state.selected_cats = all_categories # Set state for the key
+        st.rerun()
     if col_b.button("Clear All", use_container_width=True):
-        st.session_state.selected_cats = []
+        st.session_state.selected_cats = [] # Set state for the key
+        st.rerun()
     
-    # Initialize session state if needed
+    # Initialize session state if needed OR CLEAN IT
     if 'selected_cats' not in st.session_state:
         st.session_state.selected_cats = all_categories
+    else:
+        # --- THIS IS THE FIX ---
+        # Clean the list: only keep categories that are still in all_categories
+        st.session_state.selected_cats = [cat for cat in st.session_state.selected_cats if cat in all_categories]
     
-    selected_cats = st.sidebar.multoselect(
+    # This was the line causing the error
+    # By using key='selected_cats', the widget will:
+    # 1. READ its state from st.session_state.selected_cats (which we just cleaned)
+    # 2. WRITE its output back to st.session_state.selected_cats
+    # The 'default' parameter is no longer needed because the key handles it.
+    selected_cats = st.sidebar.multiselect(
         "Choose categories to analyze:", 
         options=all_categories,
-        default=st.session_state.selected_cats,
+        key='selected_cats',  # Use the key to manage state
         help="Filter data to specific product categories"
     )
+    
+    # --- END: CORRECTED BLOCK ---
     
     st.sidebar.markdown("---")
     
@@ -319,7 +333,7 @@ with tab2:
             color='Avg_Rating',
             title="Review Volume by Category", 
             labels={'Sales_Volume': 'Volume'},
-            color_continuous_scale='RdYlG'
+            color_continuous_scale='RdYlGn'
         )
         st.plotly_chart(fig_volume, use_container_width=True)
         
@@ -367,7 +381,7 @@ with tab3:
             y='Mention_Count',
             title=f"Top {top_n} Claim Mentions", 
             color='Avg_Claim_Rating',
-            color_continuous_scale='RdYlG'
+            color_continuous_scale='RdYlGn'
         )
         st.plotly_chart(fig_claim, use_container_width=True)
         
@@ -395,7 +409,8 @@ with tab3:
         dominant trends in customer feedback.
         """)
         
-        if show_insighs:
+        # This was 'if show_insighs:' - fixed typo to 'show_insights'
+        if show_insights:
             with st.expander("Insights"):
                 st.markdown("- **Dominant claims:** Key customer priorities.")
                 st.markdown("- **Small slices:** Emerging or niche opportunities.")
